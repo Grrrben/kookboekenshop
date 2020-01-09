@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>List</h1>
+    <ul>
+        {% for product in products|filter(product => product.slug) -%}
+            <li>
+                <b>
+                    <a href="{{ path('product', {slug: product.slug}) }}">{{product.title}}</a>
+                </b>
+                <p><em>{{product.subTitle}}</em></p>
+                <p>{{product.descShort|raw}}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
