@@ -36,8 +36,7 @@ class CreateSlugCommand extends Command
         Slugger $slugger,
         EntityManagerInterface $entityManager,
         string $name = null
-    )
-    {
+    ) {
         parent::__construct($name);
         $this->productRepository = $productRepository;
         $this->slugger = $slugger;
@@ -53,18 +52,25 @@ class CreateSlugCommand extends Command
         $this->addArgument('id', InputArgument::OPTIONAL, 'id. Matches the ID of a Product entity.');
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $id = (int)$input->getArgument('id');
         if ($id !== 0) {
 
             $product = $this->productRepository->find($id);
-
             if (!($product instanceof Product)) {
                 $output->writeln(sprintf('<comment>No products found with ID %d</comment>', $id));
                 return 1;
             }
-            $this->setSlug($product);
+
+            $product = $this->updateProduct($product);
             $this->entityManager->flush();
 
             $output->writeln(sprintf('Added slug to book with id %d', $product->getId()));
@@ -72,22 +78,43 @@ class CreateSlugCommand extends Command
         }
 
         $products = $this->productRepository->findWithoutSlug();
+        $this->updateProducts($products);
 
-        foreach ($products as $product) {
-            $this->setSlug($product);
-        }
-        $this->entityManager->flush();
         $output->writeln(sprintf('Added slugs to %d books', count($products)));
 
         return 0;
+    }
+
+    /**
+     * @param Product[] $products
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    private function updateProducts(array $products) {
+        foreach ($products as $product) {
+            if ($product instanceof Product) {
+                $this->updateProduct($product);
+            }
+        }
+        $this->entityManager->flush();
+    }
+
+    /**
+     * @param Product $product
+     * @return Product
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function updateProduct(Product $product)
+    {
+        $product = $this->setSlug($product);
+        $this->entityManager->persist($product);
+        return $product;
     }
 
     private function setSlug(Product $product): Product
     {
         $slug = $this->slugger->transform($product->getTitle());
         $product->setSlug($slug);
-        $this->entityManager->persist($product);
         return $product;
     }
-
 }

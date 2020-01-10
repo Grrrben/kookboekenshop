@@ -1,9 +1,17 @@
 {% extends "base.html.twig" %}
 
+{% block title %}
+    {{product.title}}
+{% endblock %}
+
 {% block body %}
 
     <h1>{{product.title}}</h1>
-    <p><em>{{product.subTitle}}</em></p>
-    <p>{{product.descLong}}</p>
+    <p>{{product.subTitle}}</p>
+    <p><em>{{product.quote}}</em></p>
+    <p>{{product.descLong|raw}}</p>
+    <p>{{product.price}}</p>
+    <p>{{product.listPrice}}</p>
+    <p>OLD: {{product.kbsId}}</p>
 
 {% endblock %}
