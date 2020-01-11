@@ -9,9 +9,24 @@
     <h1>{{product.title}}</h1>
     <p>{{product.subTitle}}</p>
     <p><em>{{product.quote}}</em></p>
-    <p>{{product.descLong|raw}}</p>
-    <p>{{product.price}}</p>
-    <p>{{product.listPrice}}</p>
-    <p>OLD: {{product.kbsId}}</p>
+
+    <div class="row mb-3">
+        <div class="col-md-8">
+            <p>{{product.descLong|raw}}</p>
+
+        </div>
+
+        <div class="col-md-4">
+            <p>{{product.price}}</p>
+            <p>(En dat was {{product.listPrice}})</p>
+            <p>KBS ID: {{product.kbsId}}</p>
+        </div>
+    </div>
+
+    <p>tag, tag, tag</p>
+
+    <aside>
+        related book here
+    </aside>
 
 {% endblock %}
