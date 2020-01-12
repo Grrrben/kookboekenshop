@@ -1,29 +1,36 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    {{product.title}}
+    {{ product.title }}
 {% endblock %}
 
 {% block body %}
 
-    <h1>{{product.title}}</h1>
-    <p>{{product.subTitle}}</p>
-    <p><em>{{product.quote}}</em></p>
+    <h1>{{ product.title }}</h1>
+    <p>{{ product.subTitle }}</p>
+    <p><em>{{ product.quote }}</em></p>
 
     <div class="row mb-3">
         <div class="col-md-8">
-            <p>{{product.descLong|raw}}</p>
+            <p>{{ product.descLong|raw }}</p>
 
         </div>
 
         <div class="col-md-4">
-            <p>{{product.price}}</p>
-            <p>(En dat was {{product.listPrice}})</p>
-            <p>KBS ID: {{product.kbsId}}</p>
+            <p>{{ product.price }}</p>
+            <p>(En dat was {{ product.listPrice }})</p>
+            <p>KBS ID: {{ product.kbsId }}</p>
         </div>
     </div>
 
-    <p>tag, tag, tag</p>
+    <ul>
+        {% for tag in product.tags %}
+            <li>
+                <a href="{{ path('tag', {slug: tag.name}) }}">{{ tag.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
 
     <aside>
         related book here

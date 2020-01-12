@@ -20,7 +20,7 @@ class Product
 
     /**
      * This is the previous id. Needed for 301 routing etc.
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", unique=true)
      */
     private $kbsId;
 
@@ -34,13 +34,156 @@ class Product
      */
     private $slug;
 
+    public function getAppearance()
+    {
+        return $this->appearance;
+    }
+
+    public function setAppearance($appearance): self
+    {
+        $this->appearance = $appearance;
+        return $this;
+    }
+
+    public function getBinding()
+    {
+        return $this->binding;
+    }
+
+    public function setBinding($binding): self
+    {
+        $this->binding = $binding;
+        return $this;
+    }
+
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    public function setLanguage($language): self
+    {
+        $this->language = $language;
+        return $this;
+    }
+
+    public function getAvailability()
+    {
+        return $this->availability;
+    }
+
+    public function setAvailability($availability): self
+    {
+        $this->availability = $availability;
+        return $this;
+    }
+
+    public function getImgCover()
+    {
+        return $this->imgCover;
+    }
+
+    public function setImgCover($imgCover): self
+    {
+        $this->imgCover = $imgCover;
+        return $this;
+    }
+
+    public function getImgBook()
+    {
+        return $this->imgBook;
+    }
+
+    public function setImgBook($imgBook): self
+    {
+        $this->imgBook = $imgBook;
+        return $this;
+    }
+
+    public function getImgAuthor()
+    {
+        return $this->imgAuthor;
+    }
+
+    public function setImgAuthor($imgAuthor): self
+    {
+        $this->imgAuthor = $imgAuthor;
+        return $this;
+    }
+
+    public function getImgThumbnail()
+    {
+        return $this->imgThumbnail;
+    }
+
+    public function setImgThumbnail($imgThumbnail): self
+    {
+        $this->imgThumbnail = $imgThumbnail;
+        return $this;
+    }
+
+    public function getCoAuthor()
+    {
+        return $this->coAuthor;
+    }
+
+    public function setCoAuthor($coAuthor): self
+    {
+        $this->coAuthor = $coAuthor;
+        return $this;
+    }
+
+    public function getTranslator()
+    {
+        return $this->translator;
+    }
+
+    public function setTranslator($translator): self
+    {
+        $this->translator = $translator;
+        return $this;
+    }
+
+    public function getIllustrator()
+    {
+        return $this->illustrator;
+    }
+
+    public function setIllustrator($illustrator): self
+    {
+        $this->illustrator = $illustrator;
+        return $this;
+    }
+
+    public function getEditor()
+    {
+        return $this->editor;
+    }
+
+    public function setEditor($editor): self
+    {
+        $this->editor = $editor;
+        return $this;
+    }
+
+    public function getPhotographer()
+    {
+        return $this->photographer;
+    }
+
+    public function setPhotographer($photographer): self
+    {
+        $this->photographer = $photographer;
+        return $this;
+    }
+
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $subTitle;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $quote;
 
@@ -85,7 +228,7 @@ class Product
     private $descShort;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $descLong;
 
@@ -150,7 +293,7 @@ class Product
     private $photographer;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tag")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="products")
      */
     private $tags;
 
