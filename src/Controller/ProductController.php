@@ -29,9 +29,11 @@ class ProductController extends AbstractController
     {
         $product = $this->productRepository->findBySlug($slug);
 
-        return [
-            'product' => $product
-        ];
+        if (!($product instanceof Product)) {
+            return $this->redirect('/404');
+        }
+
+        return ['product' => $product];
     }
 
     /**
@@ -43,7 +45,7 @@ class ProductController extends AbstractController
     public function old(Request $request)
     {
         $id = (int) $request->query->get('id');
-        $product = $this->productRepository->find($id);
+        $product = $this->productRepository->findByKbsId($id);
 
         if (!($product instanceof Product)) {
             return $this->redirect('/404');
