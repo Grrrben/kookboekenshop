@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ word.dutch }}
+{% endblock %}
+
+{% block body %}
+
+    <h1>{{ word.dutch }}</h1>
+
+    <div class="row mb-3">
+        <div class="col-md-8">
+            <p>Bekijk de vertaling van {{ word.dutch }} hier:</p>
+
+            <ul>
+                <li>{{ word.dutch }} in het Duits {{ word.german }}</li>
+                <li>{{ word.dutch }} in het Engels {{ word.english }}</li>
+                <li>{{ word.dutch }} in het Frans {{ word.french }}</li>
+                <li>{{ word.dutch }} in het Spaans {{ word.spanish }}</li>
+                <li>{{ word.dutch }} is {{ word.italian }} in het Italiaans</li>
+            </ul>
+
+        </div>
+
+        <div class="col-md-4">
+            <ul>
+                <li>rechts</li>
+                <li>denk</li>
+                <li>ik</li>
+            </ul>
+        </div>
+    </div>
+
+    <aside>
+        category here
+    </aside>
+
+{% endblock %}
