@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
 use App\Entity\Tag;
 use App\Repository\ProductRepository;
 use App\Repository\TagRepository;
@@ -36,7 +35,6 @@ class TagController extends AbstractController
      */
     public function tag(string $slug)
     {
-
         $tag = $this->tagRepository->findOneBySlug($slug);
 
         if (!($tag instanceof Tag)) {

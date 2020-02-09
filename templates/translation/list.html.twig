@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Culinair woordenboek
+{% endblock %}
+
+{% block body %}
+
+    <h1>Culinair woordenboek</h1>
+
+    <div class="row mb-3">
+        <div class="col-md-8">
+            <p>Alle woorden uit het culinair woordenboek.</p>
+
+            <ul>
+                {% for word in words %}
+                    <li>
+                        <a href="{{ path('translation_by_slug', {slug: word.slug}) }}">{{ word.dutch }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+
+        <div class="col-md-4">
+            <ul>
+                <li>rechts</li>
+                <li>denk</li>
+                <li>ik</li>
+            </ul>
+        </div>
+    </div>
+
+    <aside>
+        aside
+    </aside>
+
+{% endblock %}

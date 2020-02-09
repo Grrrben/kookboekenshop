@@ -90,6 +90,21 @@ class TranslateController extends AbstractController
     }
 
     /**
+     * @Route("/woordenboek", name="translation_list")
+     * @Template("translation/list.html.twig")
+     */
+    public function list()
+    {
+        $words = $this->wordRepository->findAll();
+        $categories = $this->categoryRepository->findAll();
+
+        return [
+            'words' => $words,
+            'categories' => $categories,
+        ];
+    }
+
+    /**
      * @Route("/woordenboek/{slug}", name="translation_by_slug")
      * @Template("translation/word.html.twig")
      */

@@ -22,7 +22,18 @@
             {% block body %}{% endblock %}
 
             <footer>
-                footer
+                <p>Footer in een rij van drie</p>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        Boeken/recepten
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{{ path('translation_list') }}">Culinair woordenboek</a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{{ path('combination_list') }}">Smaakcombinaties</a>
+                    </div>
+                </div>
             </footer>
 
         </div>
