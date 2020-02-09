@@ -1,38 +1,45 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    {{ word.dutch }}
+    {{ word.dutch }} in het {{ language }}
 {% endblock %}
 
 {% block body %}
 
-    <h1>{{ word.dutch|capitalize }}</h1>
+    <h1>{{ word.dutch|capitalize }} vertaald in het {{ language }}</h1>
+
+    <p>{{ word.dutch|capitalize }} vertaald in het {{ language }} is {{ translation }}</p>
+
 
     <div class="row mb-3">
         <div class="col-md-8">
             <p>Bekijk de vertaling van {{ word.dutch }} hier:</p>
-
             <ul>
-                <li>{{ word.dutch }} in het
+                <li>
                     <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'duits', 'slug': word.slug }) }}">
                         Duits
-                    </a> {{ word.german }}</li>
-                <li>{{ word.dutch }} in het
+                    </a>
+                </li>
+                <li>
                     <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'engels', 'slug': word.slug }) }}">
                         Engels
-                    </a> {{ word.english }}</li>
-                <li>{{ word.dutch }} in het
+                    </a>
+                </li>
+                <li>
                     <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'frans', 'slug': word.slug }) }}">
                         Frans
-                    </a> {{ word.french }}</li>
-                <li>{{ word.dutch }} in het
+                    </a>
+                </li>
+                <li>
                     <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'spaans', 'slug': word.slug }) }}">
                         Spaans
-                    </a> {{ word.spanish }}</li>
-                <li>{{ word.dutch }} is {{ word.italian }} in het
+                    </a>
+                </li>
+                <li>
                     <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'italiaans', 'slug': word.slug }) }}">
                         Italiaans
-                    </a></li>
+                    </a>
+                </li>
             </ul>
 
         </div>

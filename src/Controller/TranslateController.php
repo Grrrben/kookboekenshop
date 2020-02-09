@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use App\Entity\Translation\Word;
 use App\Repository\Translation\CategoryRepository;
@@ -51,19 +49,62 @@ class TranslateController extends AbstractController
     }
 
     /**
+     * @Route("/woordenboek/{slug}/{language}", name="translation_by_slug_in_specific_language")
+     * @Template("translation/word_per_language.html.twig")
+     */
+    public function wordInLanguage(string $slug, string $language)
+    {
+        $word = $this->wordRepository->findBySlug($slug);
+        $categoryWords = $word->getCategory()->getWords();
+
+        if (!($word instanceof Word)) {
+            return $this->redirect('/404');
+        }
+
+        switch ($language) {
+            case 'engels':
+                $translation = $word->getEnglish();
+                break;
+            case 'spaans':
+                $translation = $word->getSpanish();
+                break;
+            case 'italiaans':
+                $translation = $word->getItalian();
+                break;
+            case 'duits':
+                $translation = $word->getGerman();
+                break;
+            case 'frans':
+                $translation = $word->getFrench();
+                break;
+            default:
+                return $this->redirect('/404');
+        }
+
+        return [
+            'word' => $word,
+            'categoryWords' => $categoryWords,
+            'language' => $language,
+            'translation' => $translation
+        ];
+    }
+
+    /**
      * @Route("/woordenboek/{slug}", name="translation_by_slug")
      * @Template("translation/word.html.twig")
      */
     public function word(string $slug)
     {
         $word = $this->wordRepository->findBySlug($slug);
+        $categoryWords = $word->getCategory()->getWords();
 
         if (!($word instanceof Word)) {
             return $this->redirect('/404');
         }
 
-        return ['word' => $word];
+        return [
+            'word' => $word,
+            'categoryWords' => $categoryWords
+        ];
     }
-
-
 }
