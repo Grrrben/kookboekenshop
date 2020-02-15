@@ -30,7 +30,7 @@ class ProductController extends AbstractController
         $product = $this->productRepository->findBySlug($slug);
 
         if (!($product instanceof Product)) {
-            return $this->redirect('/404');
+            return $this->redirect('/404', 404);
         }
 
         return ['product' => $product];

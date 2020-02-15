@@ -1,33 +1,26 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    {{ ingredient.name }}
+    {{ recipe.title }}
 {% endblock %}
 
 {% block body %}
 
-    <h1>{{ ingredient.name|capitalize }}</h1>
+    <h1>{{ recipe.title|capitalize }}</h1>
 
     <div class="row mb-3">
         <div class="col-md-8">
-            <p>De smaak van {{ ingredient.name|lower }} is goed te combineren met:</p>
-
-            <ul>
-                {% for combination in ingredient.ingredients %}
-                    <li>
-                        <a href="{{ path('combination', {slug: combination.slug}) }}">{{ combination.name }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-
+            <p>{{ recipe.introduction|raw }}</p>
+            <p>{{ recipe.ingredients|raw }}</p>
+            <p>{{ recipe.description|raw }}</p>
         </div>
 
         <div class="col-md-4">
-            <ul>
-                <li>rechts</li>
-                <li>denk</li>
-                <li>ik</li>
-            </ul>
+            {% if recipe.product is not null %}
+                <p>Dit recept komt uit <a href="{{ path('product', {'slug': recipe.product.slug}) }}">{{ recipe.product.title }}</a>.</p>
+                {% else %}
+                <p>sfyjsgdhb</p>
+            {% endif %}
         </div>
     </div>
 
