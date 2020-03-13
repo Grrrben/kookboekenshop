@@ -22,7 +22,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/product/{slug}", name="product")
+     * @Route("/kookboek/{slug}", name="product")
      * @Template("product/product.html.twig")
      */
     public function product(string $slug)

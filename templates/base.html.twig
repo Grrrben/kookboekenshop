@@ -4,7 +4,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+        <!-- font -->
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="/css/base.css">
@@ -14,29 +14,52 @@
 
     </head>
     <body>
+        <header>
+
+            <div class="container">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <div id="logo">
+                            <a href="/">Kookboekenshop</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <form name="search" id="header-search-form" class="clearfix">
+                            <input type="text" name="q" id="text-search-input" placeholder="doorzoek alle kookboeken">
+                            <input type="submit" value="zoeken">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </header>
+
         <div class="container">
-            <header>
-                Kbs logo
-            </header>
-
+            {% block categories %}{% endblock %}
             {% block body %}{% endblock %}
+        </div>
 
-            <footer>
-                <p>Footer in een rij van drie</p>
+        <footer>
+            <div class="container">
+
+            <p>Footer in een rij van drie</p>
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <a href="{{ path('recipes_list') }}">Recepten</a>
+                        {{ recipes(5)|raw }}
                     </div>
                     <div class="col-md-4">
                         <a href="{{ path('translation_list') }}">Culinair woordenboek</a>
+                        {{  translations(5)|raw }}
                     </div>
                     <div class="col-md-4">
                         <a href="{{ path('combination_list') }}">Smaakcombinaties</a>
+                        {{  combinations(5)|raw }}
                     </div>
-                </div>
-            </footer>
 
-        </div>
+                </div>
+            </div>
+        </footer>
 
         {% block javascripts %}{% endblock %}
 
