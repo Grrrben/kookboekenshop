@@ -35,23 +35,27 @@
             {% endif %}
 
             <div class="description">{{ product.descLong|raw }}</div>
-
-            {% if product.author is not empty %}
-            <div>
-                {{ product.title }} is geschreven door {{ product.author.firstName }} {{ product.author.lastName }}.
-            </div>
-            {% endif %}
         </div>
 
         <div class="col-md-4 right-box">
             <p class="price">{{ product.price|price }}</p>
+
             <p class="savings">(En dat was {{ product.listPrice|euro }})</p>
 
             <a href="http://partnerprogramma.bol.com/click/click?p=1&t=url&s=10517&url=http%3A//www.bol.com/nl/s/boeken/zoekresultaten/Ntt/{{ product.isbn13 }}/Nty/1/N/8299+8293/Ne/8299+8293/search/true/searchType/qck/sc/books_nl_isbncode/index.html%3F_requestid%3D28246&f=TXL&name={{ product.isbn13 }}">Bestellen</a>
 
+            {% if product.author is not empty %}
+                <div>
+                    <a href="{{ path('author', {'id': product.author.id }) }}">
+                        {{ product.author.firstName }} {{ product.author.lastName }}
+                    </a>
+                </div>
+            {% endif %}
 
             <p class="other-info">{{ product.isbn13 }}</p>
             <p class="other-info">KBS ID: {{ product.kbsId }}</p>
+
+
         </div>
     </div>
 

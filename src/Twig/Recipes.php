@@ -3,6 +3,7 @@
 namespace App\Twig;
 
 use App\Repository\RecipeRepository;
+use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -12,10 +13,15 @@ class Recipes extends AbstractExtension
      * @var RecipeRepository
      */
     private $recipeRepository;
+    /**
+     * @var Environment
+     */
+    private $twig;
 
-    public function __construct(RecipeRepository $recipeRepository)
+    public function __construct(RecipeRepository $recipeRepository, Environment $twig)
     {
         $this->recipeRepository = $recipeRepository;
+        $this->twig = $twig;
     }
 
     public function getFunctions()
@@ -25,23 +31,17 @@ class Recipes extends AbstractExtension
         ];
     }
 
+    /**
+     * @param int $num
+     * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     public function top(int $num)
     {
         $recipes = $this->recipeRepository->findBy([], ['views' => 'desc'], $num);
-        $html = '';
 
-        if (count($recipes)) {
-            $html .= '<ul class="footer-list">';
-            foreach ($recipes as $recipe) {
-                $html .= sprintf(
-                    '<li><a href="/recept/%s">%s</a></li>',
-                    $recipe->getSlug(),
-                    $recipe->getTitle()
-                );
-            }
-            $html .= '</ul>';
-        }
-
-        return $html;
+        return $this->twig->render('recipe/footer.html.twig', ['recipes' => $recipes]);
     }
 }

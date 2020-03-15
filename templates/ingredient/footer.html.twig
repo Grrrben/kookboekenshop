@@ -1,0 +1,7 @@
+<ul class="footer-list">
+    {% for ingredient in ingredients %}
+        <li>
+            <a href="{{ path('combination', {slug: ingredient.slug}) }}">{{ ingredient.name }}</a>
+        </li>
+    {% endfor %}
+</ul>

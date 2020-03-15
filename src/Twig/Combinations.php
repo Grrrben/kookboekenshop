@@ -3,7 +3,7 @@
 namespace App\Twig;
 
 use App\Repository\Combination\IngredientRepository;
-use App\Repository\RecipeRepository;
+use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -13,10 +13,15 @@ class Combinations extends AbstractExtension
      * @var IngredientRepository
      */
     private $ingredientRepository;
+    /**
+     * @var Environment
+     */
+    private $twig;
 
-    public function __construct(IngredientRepository $ingredientRepository)
+    public function __construct(IngredientRepository $ingredientRepository, Environment $twig)
     {
         $this->ingredientRepository = $ingredientRepository;
+        $this->twig = $twig;
     }
 
     public function getFunctions()
@@ -26,23 +31,17 @@ class Combinations extends AbstractExtension
         ];
     }
 
+    /**
+     * @param int $num
+     * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     public function top(int $num)
     {
         $ingredients = $this->ingredientRepository->findBy([], ['views' => 'desc'], $num);
-        $html = '';
 
-        if (count($ingredients)) {
-            $html .= '<ul class="footer-list">';
-            foreach ($ingredients as $ingredient) {
-                $html .= sprintf(
-                    '<li><a href="/combinaties/%s">%s</a></li>',
-                    $ingredient->getSlug(),
-                    $ingredient->getName()
-                );
-            }
-            $html .= '</ul>';
-        }
-
-        return $html;
+        return $this->twig->render('ingredient/footer.html.twig', ['ingredients' => $ingredients]);
     }
 }
