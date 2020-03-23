@@ -2,10 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Author;
 use App\Entity\Product;
-use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -37,4 +37,27 @@ class ProductRepository extends ServiceEntityRepository
     {
         return $this->findBy(['slug' => null]);
     }
+
+    /**
+     * @return Product[]
+     */
+    public function findByAuthor(Author $author): array
+    {
+        return $this->findBy(['author' => $author]);
+    }
+
+    /**
+     * @return Product[]
+     */
+    public function getWithCoverImg(): array
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->where('p.imgCover IS NOT NULL');
+        $qb->andWhere('p.imgCover NOT LIKE :like')
+        ->setParameter('like', "");
+
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

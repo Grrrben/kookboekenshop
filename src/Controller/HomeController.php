@@ -15,7 +15,7 @@ class HomeController extends AbstractController
      */
     public function index(ProductRepository $productRepository)
     {
-        $products = $productRepository->findAll();
+        $products = $productRepository->getWithCoverImg();
 
         return [
             'products' => $products

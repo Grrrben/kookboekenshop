@@ -1,8 +1,38 @@
 {% extends "base.html.twig" %}
 
+
+{% block title %}
+    {{ author.firstName }} {{ author.lastName }}
+{% endblock %}
+
 {% block body %}
 
-    <h1>{{author.firstName}} {{author.lastName}}</h1>
-    <p>{{author.description|raw}}</p>
+    <h1>{{ author.firstName }} {{ author.lastName }}</h1>
+
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-md-8">
+                {% if author.image is not empty %}
+                    <div class="bordered-padded">
+                        <img src="/images/img_authors/{{ author.image }}" alt="Afbeelding van {{ author.firstName }} {{ author.lastName }}">
+                    </div>
+                {% endif %}
+
+                <div class="description">{{ author.description|raw }}</div>
+            </div>
+
+            <div class="col-md-4 right-box">
+                <p>Boeken van {{ author.firstName }} {{ author.lastName }}:</p>
+                <ul class="book-list">
+                    {% for product in products %}
+                        <li>
+                            <a href="{{ path('product', {slug: product.slug}) }}">{{ product.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                right
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

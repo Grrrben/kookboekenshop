@@ -11,15 +11,35 @@ use App\Repository\ProductRepository;
 class AuthorController extends AbstractController
 {
     /**
+     * @var AuthorRepository
+     */
+    private $authorRepository;
+
+    /**
+     * @var ProductRepository
+     */
+    private $productRepository;
+
+    public function __construct(
+        AuthorRepository $authorRepository,
+        ProductRepository $productRepository
+    ) {
+        $this->authorRepository = $authorRepository;
+        $this->productRepository = $productRepository;
+    }
+
+    /**
      * @Route("/author/{id}", name="author")
      * @Template("author/author.html.twig")
      */
-    public function index(int $id, AuthorRepository $authorRepository)
+    public function index(int $id)
     {
-        $author = $authorRepository->find($id);
+        $author = $this->authorRepository->find($id);
+        $products = $this->productRepository->findByAuthor($author);
 
         return [
-            'author' => $author
+            'author' => $author,
+            'products' => $products,
         ];
     }
 }

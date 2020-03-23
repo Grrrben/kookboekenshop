@@ -18,8 +18,6 @@
     </ul>
 {% endblock %}
 
-
-
 {% block body %}
 
     <h1>{{ product.title }}</h1>
@@ -29,7 +27,7 @@
     <div class="row mb-3">
         <div class="col-md-8">
             {% if product.imgCover is not empty %}
-            <div class="book-cover-image">
+            <div class="bordered-padded book-cover-image">
                   <img src="{{ product.imgCover }}" alt="Cover van {{ product.title }}">
             </div>
             {% endif %}
@@ -39,21 +37,48 @@
 
         <div class="col-md-4 right-box">
             <p class="price">{{ product.price|price }}</p>
+            <p class="supplier">Levering via bol.com</p>
 
-            <p class="savings">(En dat was {{ product.listPrice|euro }})</p>
-
-            <a href="http://partnerprogramma.bol.com/click/click?p=1&t=url&s=10517&url=http%3A//www.bol.com/nl/s/boeken/zoekresultaten/Ntt/{{ product.isbn13 }}/Nty/1/N/8299+8293/Ne/8299+8293/search/true/searchType/qck/sc/books_nl_isbncode/index.html%3F_requestid%3D28246&f=TXL&name={{ product.isbn13 }}">Bestellen</a>
+            <div class="product-basket-button">
+                <a href="http://partnerprogramma.bol.com/click/click?p=1&t=url&s=10517&url=http%3A//www.bol.com/nl/s/boeken/zoekresultaten/Ntt/{{ product.isbn13 }}/Nty/1/N/8299+8293/Ne/8299+8293/search/true/searchType/qck/sc/books_nl_isbncode/index.html%3F_requestid%3D28246&f=TXL&name={{ product.isbn13 }}">Bestellen</a>
+                <span class="glyphicon glyphicon-shopping-cart"></span>
+            </div>
 
             {% if product.author is not empty %}
-                <div>
-                    <a href="{{ path('author', {'id': product.author.id }) }}">
-                        {{ product.author.firstName }} {{ product.author.lastName }}
-                    </a>
+                <div class="person">
+                    <p>{{ product.title }} is een kookboek van <a href="{{ path('author', {'id': product.author.id }) }}">{{ product.author.firstName }} {{ product.author.lastName }}</a>.</p>
+                    {% if product.author.image is not empty %}
+                        <img src="/images/img_authors/{{ product.author.image }}" alt="{{ product.author.firstName }} {{ product.author.lastName }}">
+                    {% endif %}
                 </div>
             {% endif %}
 
-            <p class="other-info">{{ product.isbn13 }}</p>
-            <p class="other-info">KBS ID: {{ product.kbsId }}</p>
+            {% if product.photographer is not empty %}
+                <div class="person">
+                    <p>De fotografie is gedaan door {{ product.photographer.firstName }} {{ product.photographer.lastName }}.</p>
+                </div>
+            {% endif %}
+
+            {% if product.translator is not empty %}
+                <div class="person">
+                    <p>De vertaling is verzorgd door {{ product.translator.firstName }} {{ product.translator.lastName }}.</p>
+                </div>
+            {% endif %}
+
+            {% if product.illustrator is not empty %}
+                <div class="person">
+                    <p>De illustraties zijn verzorgd door {{ product.illustrator.firstName }} {{ product.illustrator.lastName }}.</p>
+                </div>
+            {% endif %}
+
+
+            <ul class="list other-info">
+                <li>ISBN: <strong>{{ product.isbn13 }}</strong></li>
+                <li>{{ product.appearance }} {{ product.binding }}</li>
+                <li>Pagina's: <strong>{{ product.pages }} pagina's</strong></li>
+                <li>Jaar van uitgave: <strong>{{ product.year }}</strong></li>
+                <li>KBS: <strong>{{ product.kbsId }}</strong></li>
+            </ul>
 
 
         </div>

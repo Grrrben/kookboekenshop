@@ -3,6 +3,10 @@ body {
     margin-bottom: 0;
 }
 
+a {
+    color: #117a8b;
+}
+
 header {
     background-color: #ccc;
     min-height: 70px;
@@ -11,8 +15,11 @@ header {
 
 #logo {
     background-color: #117a8b;
-    width: 150px;
+    width: 200px;
     min-height: 70px;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    padding: 1em;
 }
 
 #logo a {
@@ -37,7 +44,7 @@ h1 {
     font-size: 1.5em;
 }
 
-.book-cover-image {
+.bordered-padded {
     padding: 10px;
     border: 1px solid #444;
     margin-bottom: 1em;
@@ -52,17 +59,56 @@ h1 {
 }
 
 .right-box {
-    padding: 1.25em 1em;
+    padding: 1.25em 0.5em;
     border: 1px #444 solid;
 }
+
+.right-box img {
+    max-width: 100%;
+}
+
+.right-box .person {
+    margin-top: 1em;
+    padding-top: 1em;
+    border-top: #5a6268 solid 1px;
+}
+
+.supplier {
+    font-size: smaller;
+    margin-bottom: 0;
+}
+
 .price {
     font-size: 4em;
 }
 .savings {
 
 }
-.other-info {
+ul.other-info {
+    margin: 0;
+    padding: 0;
+}
 
+ul.other-info li{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.product-basket-button  {
+    padding: 1em;
+    display: block;
+    background-color: #117a8b;
+}
+
+.product-basket-button  a {
+    color: white;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.product-basket-button:hover {
+    color:white;
 }
 
 /** tags */
@@ -82,7 +128,34 @@ ul.tags li {
     border-radius: 5px;
 }
 
+/** Footer */
 footer {
     margin-top: 2em;
     background-color: #ccc;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+    padding-top: 4em;
+    padding-bottom: 4em;
+}
+
+footer h4 {
+    font-size: 1em;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+}
+
+ul.footer-list{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 1em;
+}
+
+/** product tile */
+
+.tile-cover-image {
+    max-height: 182px;
+    overflow: hidden;
+}
+.tile-cover-image img {
+    max-width: 100%;
+    max-height: 100%;
 }

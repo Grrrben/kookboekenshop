@@ -4,6 +4,9 @@ namespace App\Twig;
 
 use App\Repository\Combination\IngredientRepository;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -34,9 +37,9 @@ class Combinations extends AbstractExtension
     /**
      * @param int $num
      * @return string
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function top(int $num)
     {

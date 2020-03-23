@@ -1,19 +1,12 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <h1>{{ tag.name}}</h1>
+    <h1>Kookboeken met {{ tag.name}}</h1>
+    <p>Een overzicht van alle kookboeken met {{ tag.name }} als onderwerp.</p>
+    <div class="row mb-3">
+        {% for product in products|filter(product => product.slug) %}
+            {% include 'product/tile.html.twig' with {'product':product} only %}
+        {% endfor %}
+    </div>
 
-    <ul>
-        <ul>
-            {% for product in products|filter(product => product.slug) -%}
-                <li>
-                    <b>
-                        <a href="{{ path('product', {slug: product.slug}) }}">{{product.title}}</a>
-                    </b>
-                    <p><em>{{product.subTitle}}</em></p>
-                    <p>{{product.descShort|raw}}</p>
-                </li>
-            {% endfor %}
-        </ul>
-    </ul>
 {% endblock %}

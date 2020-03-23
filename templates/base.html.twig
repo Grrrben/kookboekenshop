@@ -24,7 +24,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-8">
+                    <div class="col-md-8" style="text-align: right">
                         <form name="search" id="header-search-form" class="clearfix">
                             <input type="text" name="q" id="text-search-input" placeholder="doorzoek alle kookboeken">
                             <input type="submit" value="zoeken">
@@ -42,18 +42,23 @@
         <footer>
             <div class="container">
 
-            <p>Footer in een rij van drie</p>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <a href="{{ path('recipes_list') }}">Recepten</a>
+                        <h4>
+                            <a href="{{ path('recipes_list') }}">Recepten</a>
+                        </h4>
                         {{ recipes(5)|raw }}
                     </div>
                     <div class="col-md-4">
-                        <a href="{{ path('translation_list') }}">Culinair woordenboek</a>
+                        <h4>
+                            <a href="{{ path('translation_list') }}">Culinair woordenboek</a>
+                        </h4>
                         {{  translations(5)|raw }}
                     </div>
                     <div class="col-md-4">
-                        <a href="{{ path('combination_list') }}">Smaakcombinaties</a>
+                        <h4>
+                            <a href="{{ path('combination_list') }}">Smaakcombinaties</a>
+                        </h4>
                         {{  combinations(5)|raw }}
                     </div>
 
