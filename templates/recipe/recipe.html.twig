@@ -4,39 +4,28 @@
     {{ recipe.title }}
 {% endblock %}
 
+{% block metadescription %}
+    <meta name="description" content="Bekijk hier het recept voor {{ recipe.title|capitalize }} uit {{ recipe.product.title }}.">
+{% endblock %}
+
 {% block body %}
 
     <h1>{{ recipe.title|capitalize }}</h1>
 
     <div class="row mb-3">
         <div class="col-md-8">
-            <p>{{ recipe.introduction|raw }}</p>
-            <p>{{ recipe.ingredients|raw }}</p>
-            <p>{{ recipe.description|raw }}</p>
+            {{ recipe.introduction|raw }}
+            {{ recipe.ingredients|raw }}
+            {{ recipe.description|raw }}
         </div>
 
         <div class="col-md-4">
             {% if recipe.product is not null %}
-                <p>Dit recept komt uit <a href="{{ path('product', {'slug': recipe.product.slug}) }}">{{ recipe.product.title }}</a>.</p>
-                {% else %}
-                <p>sfyjsgdhb</p>
+                {% include 'product/tile.html.twig' with {'product':recipe.product} only %}
             {% endif %}
         </div>
     </div>
 
-    <aside>
-        category here in een rijtje van drie.
-        <div class="row mb-3">
-                <div class="col-md-4">
-                   een
-                </div>
-                <div class="col-md-4">
-                   twee
-                </div>
-                <div class="col-md-4">
-                   drie
-                </div>
-        </div>
-    </aside>
+    {#<aside></aside>#}
 
 {% endblock %}

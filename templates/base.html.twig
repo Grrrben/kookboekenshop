@@ -11,6 +11,7 @@
 
         <title>{% block title %}Kookboekenshop{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+        {% block metadescription %}{% endblock %}
 
     </head>
     <body>
@@ -51,7 +52,7 @@
                     </div>
                     <div class="col-md-4">
                         <h4>
-                            <a href="{{ path('translation_list') }}">Culinair woordenboek</a>
+                            <a href="{{ path('translation_category') }}">Culinair woordenboek</a>
                         </h4>
                         {{  translations(5)|raw }}
                     </div>

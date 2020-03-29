@@ -6,34 +6,28 @@
 
 {% block body %}
 
-    <h1>Recepten</h1>
-
     <div class="row mb-3">
-        <div class="col-md-8">
+        <div class="col-md-12">
+            <h1>Recepten</h1>
             <p>Een verzameling recepten die uit kookboeken komen.</p>
-
-
-            <ul>
-                {% for recipe in recipes %}
-                    <li>
-                        <a href="{{ path('recipe', {slug: recipe.slug}) }}">{{ recipe.title }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-
         </div>
 
-        <div class="col-md-4">
-            <ul>
-                <li>RECHTS</li>
-                <li>denk</li>
-                <li>ik</li>
-            </ul>
-        </div>
+        {% for set in recipes|batch(recipes|length/3) %}
+            <div class="col-md-4">
+                <ul class="no-list">
+                    {% for recipe in set %}
+                        <li>
+                            <a href="{{ path('recipe', {slug: recipe.slug}) }}">{{ recipe.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+
+        <ul>
+
+        </ul>
+
     </div>
-
-    <aside>
-        Dit is de aside
-    </aside>
 
 {% endblock %}

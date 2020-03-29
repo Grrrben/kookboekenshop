@@ -4,71 +4,32 @@
     {{ word.dutch }} in het {{ language }}
 {% endblock %}
 
+{% block metadescription %}
+    <meta name="description" content="Bekijk hier de vertaling van {{ word.dutch }} in het {{ language }}.">
+{% endblock %}
+
 {% block body %}
-
-    <h1>{{ word.dutch|capitalize }} vertaald in het {{ language }}</h1>
-
-    <p>{{ word.dutch|capitalize }} vertaald in het {{ language }} is {{ translation }}</p>
-
-
     <div class="row mb-3">
-        <div class="col-md-8">
-            <p>Bekijk de vertaling van {{ word.dutch }} hier:</p>
-            <ul>
-                <li>
-                    <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'duits', 'slug': word.slug }) }}">
-                        Duits
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'engels', 'slug': word.slug }) }}">
-                        Engels
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'frans', 'slug': word.slug }) }}">
-                        Frans
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'spaans', 'slug': word.slug }) }}">
-                        Spaans
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'italiaans', 'slug': word.slug }) }}">
-                        Italiaans
-                    </a>
-                </li>
-            </ul>
+        <div class="col-md-12">
+            <h1>{{ word.dutch|capitalize }} vertaald in het {{ language }}</h1>
 
-        </div>
+            <p>{{ word.dutch|capitalize }} vertaald in het {{ language }} is {{ translation }}</p>
 
-        <div class="col-md-4">
-            <ul>
-                <li>rechts</li>
-                <li>denk</li>
-                <li>ik</li>
-            </ul>
+            <p>
+                Bekijk de vertaling van {{ word.dutch }} ook in het
+                <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'duits', 'slug': word.slug }) }}">Duits</a>,
+                <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'engels', 'slug': word.slug }) }}">Engels</a>,
+                <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'frans', 'slug': word.slug }) }}">Frans</a>,
+                <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'spaans', 'slug': word.slug }) }}">Spaans</a>
+                en
+                <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'italiaans', 'slug': word.slug }) }}">Italiaans</a>.
+            </p>
         </div>
     </div>
 
     <aside>
-        category here in een rijtje van drie.
         <div class="row mb-3">
-            {% for set in categoryWords|batch(categoryWords.count/3) %}
-                <div class="col-md-4">
-                    <ul>
-                        {% for wrd in set %}
-                            <li>
-                                <a href="{{ path('translation_by_slug', {'slug': wrd.slug}) }}">
-                                    {{ wrd.dutch }}
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endfor %}
+            {% include 'translation/category_words_partial.html.twig' with {'category':word.category} only %}
         </div>
     </aside>
 

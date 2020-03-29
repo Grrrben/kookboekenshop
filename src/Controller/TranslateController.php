@@ -49,6 +49,47 @@ class TranslateController extends AbstractController
     }
 
     /**
+     * @Route("/woordenboek", name="translation_list")
+     * @Template("translation/list.html.twig")
+     */
+    public function list()
+    {
+        $words = $this->wordRepository->findAll();
+        $categories = $this->categoryRepository->findAll();
+
+        return [
+            'words' => $words,
+            'categories' => $categories,
+        ];
+    }
+
+    /**
+     * @Route("/woordenboek/categorieen", name="translation_category")
+     * @Template("translation/category.html.twig")
+     */
+    public function category()
+    {
+        $categories = $this->categoryRepository->findAll();
+
+        return [
+            'categories' => $categories,
+        ];
+    }
+
+    /**
+     * @Route("/woordenboek/categorie/{id}", name="words_per_category")
+     * @Template("translation/list_per_category.html.twig")
+     */
+    public function wordPerCategory(int $id)
+    {
+        $category = $this->categoryRepository->find($id);
+
+        return [
+            'category' => $category,
+        ];
+    }
+
+    /**
      * @Route("/woordenboek/{slug}/{language}", name="translation_by_slug_in_specific_language")
      * @Template("translation/word_per_language.html.twig")
      */
@@ -90,28 +131,13 @@ class TranslateController extends AbstractController
     }
 
     /**
-     * @Route("/woordenboek", name="translation_list")
-     * @Template("translation/list.html.twig")
-     */
-    public function list()
-    {
-        $words = $this->wordRepository->findAll();
-        $categories = $this->categoryRepository->findAll();
-
-        return [
-            'words' => $words,
-            'categories' => $categories,
-        ];
-    }
-
-    /**
      * @Route("/woordenboek/{slug}", name="translation_by_slug")
      * @Template("translation/word.html.twig")
      */
     public function word(string $slug)
     {
         $word = $this->wordRepository->findBySlug($slug);
-        $categoryWords = $word->getCategory()->getWords();
+        $categories = $this->categoryRepository->findAll();
 
         if (!($word instanceof Word)) {
             return $this->redirect('/404');
@@ -119,7 +145,7 @@ class TranslateController extends AbstractController
 
         return [
             'word' => $word,
-            'categoryWords' => $categoryWords
+            'categories' => $categories,
         ];
     }
 }

@@ -1,17 +1,16 @@
-<div class="col-md-4">
-    <h4>
-        <a href="{{ path('product', {slug: product.slug}) }}">{{product.title}}</a>
-    </h4>
+{# to be placed in a col-md-4 class #}
+<h4>
+    <a href="{{ path('product', {slug: product.slug}) }}">{{product.title}}</a>
+</h4>
 
-    {% if product.imgCover is not empty %}
-        <div class="bordered-padded tile-cover-image">
-            <a href="{{ path('product', {slug: product.slug}) }}">
-                <img src="{{ product.imgCover }}" alt="Cover van {{ product.title }}">
-            </a>
-        </div>
-    {% endif %}
+{% if product.imgCover is not empty %}
+    <div class="bordered-padded tile-cover-image">
+        <a href="{{ path('product', {slug: product.slug}) }}">
+            <img src="{{ product.imgCover }}" alt="Cover van {{ product.title }}">
+        </a>
+    </div>
+{% endif %}
 
-    <p><em>{{product.subTitle}}</em></p>
+<p><em>{{product.subTitle}}</em></p>
 
-    <p>{{product.descShort|raw}}</p>
-</div>
+<p>{{product.descShort|raw}}</p>

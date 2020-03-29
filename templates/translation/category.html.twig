@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Culinair woordenboek
+{% endblock %}
+
+{% block body %}
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <h1>Culinair woordenboek</h1>
+            <p>We hebben alle vertalingen van culinaire woorden ondergebracht in de volgende categorieën:</p>
+        </div>
+        {% for set in categories|batch(categories|length/3) %}
+            <div class="col-md-4">
+                <ul class="no-list">
+                    {% for cat in categories %}
+                        <li>
+                            <a href="{{ path('words_per_category', {id: cat.id}) }}">
+                                {{ cat.name|capitalize }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

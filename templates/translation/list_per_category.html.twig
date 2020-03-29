@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Vertalingen {{ category.name }}
+{% endblock %}
+
+{% block metadescription %}
+    <meta name="description" content="Vertalingen in de categorie {{ category.name }}.">
+{% endblock %}
+
+{% block body %}
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <h1>{{ category.name|capitalize }}</h1>
+            <p>Vertalingen van culinaire woorden uit de categorie {{ category.name }}.</p>
+
+        </div>
+        {% include 'translation/category_words_partial.html.twig' with {'category': category} only %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+<div class="col-md-12">
+    <h4>{{ category.name|capitalize }}</h4>
+    <p>In de categorie {{ category.name }} hebben we vertalingen voor de volgende woorden:</p>
+</div>
+
+{% for set in category.words|batch(category.words.count/3) %}
+    <div class="col-md-4">
+        <ul class="no-list">
+            {% for wrd in set %}
+                <li>
+                    <a href="{{ path('translation_by_slug', {'slug': wrd.slug}) }}">
+                        {{ wrd.dutch|capitalize }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endfor %}

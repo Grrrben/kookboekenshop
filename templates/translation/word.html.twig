@@ -4,6 +4,11 @@
     {{ word.dutch }}
 {% endblock %}
 
+{% block metadescription %}
+    <meta name="description"
+          content="Bekijk hier de vertaling van {{ word.dutch }} in het Duits, Frans, Engels, Spaans en Italiaans.">
+{% endblock %}
+
 {% block body %}
 
     <h1>{{ word.dutch|capitalize }}</h1>
@@ -13,23 +18,23 @@
             <p>Bekijk de vertaling van {{ word.dutch }} hier:</p>
 
             <ul>
-                <li>{{ word.dutch }} in het
+                <li>{{ word.dutch|capitalize }} in het
                     <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'duits', 'slug': word.slug }) }}">
                         Duits
                     </a> {{ word.german }}</li>
-                <li>{{ word.dutch }} in het
+                <li>{{ word.dutch|capitalize }} in het
                     <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'engels', 'slug': word.slug }) }}">
                         Engels
                     </a> {{ word.english }}</li>
-                <li>{{ word.dutch }} in het
+                <li>{{ word.dutch|capitalize }} in het
                     <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'frans', 'slug': word.slug }) }}">
                         Frans
                     </a> {{ word.french }}</li>
-                <li>{{ word.dutch }} in het
+                <li>{{ word.dutch|capitalize }} in het
                     <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'spaans', 'slug': word.slug }) }}">
                         Spaans
                     </a> {{ word.spanish }}</li>
-                <li>{{ word.dutch }} is {{ word.italian }} in het
+                <li>{{ word.dutch|capitalize }} is {{ word.italian }} in het
                     <a href="{{ path('translation_by_slug_in_specific_language', {'language': 'italiaans', 'slug': word.slug }) }}">
                         Italiaans
                     </a></li>
@@ -37,31 +42,11 @@
 
         </div>
 
-        <div class="col-md-4">
-            <ul>
-                <li>rechts</li>
-                <li>denk</li>
-                <li>ik</li>
-            </ul>
-        </div>
     </div>
 
     <aside>
-        category here in een rijtje van drie.
         <div class="row mb-3">
-            {% for set in categoryWords|batch(categoryWords.count/3) %}
-                <div class="col-md-4">
-                    <ul>
-                        {% for wrd in set %}
-                            <li>
-                                <a href="{{ path('translation_by_slug', {'slug': wrd.slug}) }}">
-                                    {{ wrd.dutch }}
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endfor %}
+            {% include 'translation/category_words_partial.html.twig' with {'category':word.category} only %}
         </div>
     </aside>
 

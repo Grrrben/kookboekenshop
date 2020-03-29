@@ -1,7 +1,7 @@
 <ul class="footer-list">
-    {% for translation in translations %}
+    {% for category in categories %}
         <li>
-            <a href="{{ path('translation_by_slug', {slug: translation.slug}) }}">{{ translation.dutch }}</a>
+            <a href="{{ path('words_per_category', {id: category.id}) }}">{{ category.name }}</a>
         </li>
     {% endfor %}
 </ul>

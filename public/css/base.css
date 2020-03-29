@@ -84,12 +84,12 @@ h1 {
 .savings {
 
 }
-ul.other-info {
+ul.no-list {
     margin: 0;
     padding: 0;
 }
 
-ul.other-info li{
+ul.no-list li{
     list-style: none;
     margin: 0;
     padding: 0;

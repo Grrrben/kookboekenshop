@@ -2,7 +2,7 @@
 
 namespace App\Twig;
 
-use App\Repository\Translation\WordRepository;
+use App\Repository\Translation\CategoryRepository;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -10,18 +10,18 @@ use Twig\TwigFunction;
 class Translations extends AbstractExtension
 {
     /**
-     * @var WordRepository
+     * @var CategoryRepository
      */
-    private $wordRepository;
+    private $categoryRepository;
 
     /**
      * @var Environment
      */
     private $twig;
 
-    public function __construct(WordRepository $wordRepository, Environment $twig)
+    public function __construct(CategoryRepository $categoryRepository, Environment $twig)
     {
-        $this->wordRepository = $wordRepository;
+        $this->categoryRepository = $categoryRepository;
         $this->twig = $twig;
     }
 
@@ -41,8 +41,8 @@ class Translations extends AbstractExtension
      */
     public function top(int $num)
     {
-        $words = $this->wordRepository->findBy([], ['id' => 'desc'], $num);
+        $cats = $this->categoryRepository->findBy([], ['id' => 'desc'], $num);
 
-        return $this->twig->render('translation/footer.html.twig', ['translations' => $words]);
+        return $this->twig->render('translation/footer.html.twig', ['categories' => $cats]);
     }
 }
