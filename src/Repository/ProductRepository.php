@@ -53,11 +53,18 @@ class ProductRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('p');
         $qb->where('p.imgCover IS NOT NULL');
-        $qb->andWhere('p.imgCover NOT LIKE :like')
-        ->setParameter('like', "");
-
+        $qb->andWhere('p.imgCover NOT LIKE :q')
+            ->setParameter('q', "");
 
         return $qb->getQuery()->getResult();
     }
 
+    public function findByQuery(string $query): array
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->where('p.title LIKE :q')
+            ->setParameter('q', sprintf('%%%s%%', strtolower($query)));
+
+        return $qb->getQuery()->getResult();
+    }
 }

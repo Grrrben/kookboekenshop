@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <h1>Kookboekenshop</h1>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+    {% if products is not empty %}
+        <div class="col-md-12">
+            <p>Zoekresultaat voor <strong>{{ query }}</strong>.</p>
+        </div>
+
+        {% for product in products|filter(product => product.slug) %}
+            <div class="col-md-4">
+                {% include 'product/tile.html.twig' with {'product':product} only %}
+            </div>
+        {% endfor %}
+        {% else %}
+            <div class="col-md-12">
+                <p>Geen kookboeken gevonden voor <strong>{{ query }}</strong>.</p>
+            </div>
+    {% endif %}
+
+
+
+    </div>
+
+{% endblock %}

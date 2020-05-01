@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,9 +17,17 @@ class ProductController extends AbstractController
      */
     private $productRepository;
 
-    public function __construct(ProductRepository $productRepository)
-    {
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    public function __construct(
+        ProductRepository $productRepository,
+        EntityManagerInterface $entityManager
+    ) {
         $this->productRepository = $productRepository;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -33,6 +42,10 @@ class ProductController extends AbstractController
             return $this->redirect('/404', 404);
         }
 
+        $product->setViews($product->getViews() + 1);
+        $this->entityManager->persist($product);
+        $this->entityManager->flush();
+
         return ['product' => $product];
     }
 
@@ -44,7 +57,7 @@ class ProductController extends AbstractController
      */
     public function old(Request $request)
     {
-        $id = (int) $request->query->get('id');
+        $id = (int)$request->query->get('id');
         $product = $this->productRepository->findByKbsId($id);
 
         if (!($product instanceof Product)) {
@@ -53,5 +66,22 @@ class ProductController extends AbstractController
         $url = $this->generateUrl('product', ['slug' => $product->getSlug()]);
 
         return $this->redirect($url, 301);
+    }
+
+    /**
+     * @Route("/search", name="search_products")
+//     * @Template("product/search.html.twig")
+     * @param Request $request
+     * @return array
+     */
+    public function search(Request $request)
+    {
+        $q = $request->get('q');
+        $products = $this->productRepository->findByQuery($q);
+
+        return [
+            'products' => $products,
+            'query' => $q
+        ];
     }
 }

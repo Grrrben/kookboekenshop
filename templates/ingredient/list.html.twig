@@ -9,31 +9,28 @@
     <h1>Smaakcombinaties</h1>
 
     <div class="row mb-3">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <p>Sommige smaken gaan goed met elkaar samen. Hier vind je een lijstje met alle smaakcombinaties die wij verzameld hebben.</p>
-
-
-            <ul>
-                {% for ingredient in ingredients %}
-                    <li>
-                        <a href="{{ path('combination', {slug: ingredient.slug}) }}">{{ ingredient.name }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-
-        </div>
-
-        <div class="col-md-4">
-            <ul>
-                <li>rechts</li>
-                <li>denk</li>
-                <li>ik</li>
-            </ul>
         </div>
     </div>
 
+    <div class="row mb-3">
+        {% for set in ingredients|batch(ingredients|length/3) %}
+            <div class="col-md-4">
+                <ul class="no-list">
+                    {% for ingredient in set %}
+                        <li>
+                            <a href="{{ path('combination', {'slug': ingredient.slug}) }}">
+                                {{ ingredient.name|capitalize }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
     <aside>
-        aside
+{#        aside#}
     </aside>
 
 {% endblock %}

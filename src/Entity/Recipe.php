@@ -114,9 +114,9 @@ class Recipe
         return $this->product;
     }
 
-    public function setProduct(?Product $bookId): self
+    public function setProduct(?Product $product): self
     {
-        $this->product = $bookId;
+        $this->product = $product;
 
         return $this;
     }
